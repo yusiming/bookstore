@@ -137,10 +137,37 @@ public class UserServlet extends BaseServlet {
         String code = request.getParameter("code");
         try {
             userService.active(code);
-            request.setAttribute("msg","您成功激活了您的账户");
+            request.setAttribute("msg", "您成功激活了您的账户");
         } catch (UserException e) {
             request.setAttribute("msg", e.getMessage());
         }
         return "f:/jsps/msg.jsp";
+    }
+
+    /**
+     * @Description: 用户登陆
+     * @auther: yusiming
+     * @date: 21:51 2018/9/4
+     * @param: [request, response]
+     * @return: java.lang.String
+     */
+    public String login(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+            IOException {
+        /*
+         * 1.封装参数到User对象
+         * 2.调用UserService的login方法，
+         * 3.若抛出异常，保存异常信息和form到request中，转发到login页面
+         * 4.登陆成功，保存登陆信息到session中，重定向到index页面
+         */
+        User form = CommonUtils.toBean(request.getParameterMap(), User.class);
+        try {
+            User user = userService.login(form);
+            request.getSession().setAttribute("user",user);
+            return "r:/index.jsp";
+        } catch (UserException e) {
+            request.setAttribute("msg",e.getMessage());
+            request.setAttribute("form",form);
+            return "f:/jsps/user/login.jsp";
+        }
     }
 }
