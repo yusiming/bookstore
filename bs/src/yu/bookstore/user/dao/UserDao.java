@@ -64,4 +64,36 @@ public class UserDao {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * @Description: 根据激活码查询用户
+     * @auther: yusiming
+     * @date: 20:18 2018/9/4
+     * @param: [code]
+     * @return: yu.bookstore.user.domain.User
+     */
+    public User findByCode(String code) {
+        String sql = "select * from tb_user where code=?";
+        try {
+            return queryRunner.query(sql, new BeanHandler<>(User.class), code);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * @Description: 根据uid更改用户的状态
+     * @auther: yusiming
+     * @date: 20:21 2018/9/4
+     * @param: [uid, state]
+     * @return: void
+     */
+    public void updateState(String uid, boolean state) {
+        String sql = "update tb_user set state=? where uid=?";
+        try {
+            queryRunner.update(sql,state,uid);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

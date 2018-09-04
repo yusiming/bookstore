@@ -127,7 +127,20 @@ public class UserServlet extends BaseServlet {
      */
     public String active(HttpServletRequest request, HttpServletResponse response) throws ServletException,
             IOException {
-        System.out.println("激活成功");
-        return null;
+        /*
+         * 步骤：
+         * 1.获取参数code
+         * 2.调用UserService的激活方法
+         * 3.若出错保存异常信息到request中，转发到msg.jsp
+         * 4.若激活成功，保存激活信息到request中，转发到msg.jsp
+         */
+        String code = request.getParameter("code");
+        try {
+            userService.avtive(code);
+            request.setAttribute("msg","您成功激活了您的账户");
+        } catch (UserException e) {
+            request.setAttribute("msg", e.getMessage());
+        }
+        return "f:/jsps/msg.jsp";
     }
 }
