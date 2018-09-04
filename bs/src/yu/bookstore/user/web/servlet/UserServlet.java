@@ -136,7 +136,7 @@ public class UserServlet extends BaseServlet {
          */
         String code = request.getParameter("code");
         try {
-            userService.avtive(code);
+            userService.active(code);
             request.setAttribute("msg","您成功激活了您的账户");
         } catch (UserException e) {
             request.setAttribute("msg", e.getMessage());

@@ -39,7 +39,7 @@ public class UserService {
      * @param: []
      * @return: void
      */
-    public void avtive(String code) throws UserException {
+    public void active(String code) throws UserException {
         User user = userDao.findByCode(code);
         if (user == null) {
             throw new UserException("激活码错误！");
