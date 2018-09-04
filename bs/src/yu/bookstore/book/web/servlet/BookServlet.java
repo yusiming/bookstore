@@ -14,19 +14,25 @@ import java.io.IOException;
  * @Date: 2018/9/4 23:44
  * @Description:
  */
-@WebServlet(name = "BookServlet",urlPatterns = {"/BookServlet"})
+@WebServlet(name = "BookServlet", urlPatterns = {"/BookServlet"})
 public class BookServlet extends BaseServlet {
     private BookService bookService = new BookService();
 
     public String findAll(HttpServletRequest request, HttpServletResponse response) throws ServletException,
             IOException {
-        request.setAttribute("bookList",bookService.findAll());
+        request.setAttribute("bookList", bookService.findAll());
         return "f:/jsps/book/list.jsp";
     }
 
     public String findByCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException,
             IOException {
-        request.setAttribute("bookList",bookService.findByCategory(request.getParameter("cid")));
+        request.setAttribute("bookList", bookService.findByCategory(request.getParameter("cid")));
         return "f:/jsps/book/list.jsp";
+    }
+
+    public String load(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+            IOException {
+        request.setAttribute("book", bookService.load(request.getParameter("bid")));
+        return "f:/jsps/book/desc.jsp";
     }
 }

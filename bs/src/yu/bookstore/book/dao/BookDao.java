@@ -1,6 +1,7 @@
 package yu.bookstore.book.dao;
 
 import cn.itcast.jdbc.TxQueryRunner;
+import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import yu.bookstore.book.domain.Book;
 
@@ -14,10 +15,11 @@ import java.util.List;
  */
 public class BookDao {
     private TxQueryRunner queryRunner = new TxQueryRunner();
+
     public List<Book> findAll() {
         String sql = "select * from book";
         try {
-            return queryRunner.query(sql,new BeanListHandler<>(Book.class));
+            return queryRunner.query(sql, new BeanListHandler<>(Book.class));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -26,7 +28,16 @@ public class BookDao {
     public List<Book> findByCategory(String cid) {
         String sql = "select * from book where cid=?";
         try {
-            return queryRunner.query(sql,new BeanListHandler<>(Book.class),cid);
+            return queryRunner.query(sql, new BeanListHandler<>(Book.class), cid);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Book load(String bid) {
+        String sql = "select * from book where bid=?";
+        try {
+            return queryRunner.query(sql, new BeanHandler<>(Book.class), bid);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
