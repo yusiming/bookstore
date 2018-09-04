@@ -40,7 +40,7 @@ public class UserServlet extends BaseServlet {
             IOException {
         // 获取请求参数，封装到User对象中
         User form = CommonUtils.toBean(request.getParameterMap(), User.class);
-        // 添加uid和验证码code
+        // 添加uid和验证码code，code用来激活用户
         form.setUid(CommonUtils.uuid());
         form.setCode(CommonUtils.uuid() + CommonUtils.uuid());
         // 创建一个map用来保存错误信息
@@ -63,7 +63,7 @@ public class UserServlet extends BaseServlet {
         String email = form.getEmail();
         if (email == null || email.trim().isEmpty()) {
             errors.put("email", "email不能为空");
-        } else if (!email.matches("\\w+@\\w\\.\\w+")) {
+        } else if (!email.matches("\\w+@\\w+\\.\\w+")) {
             errors.put("email", "email格式不正确");
         }
         if (errors.size() > 0) {
@@ -88,6 +88,7 @@ public class UserServlet extends BaseServlet {
          * 发送邮件
          * 1.加载配置文件
          * 2.获取配置文件
+         * 3.发送邮件到用户邮箱
          */
         Properties properties = new Properties();
         properties.load(this.getClass().getClassLoader().getResourceAsStream("email_template.properties"));
@@ -104,12 +105,12 @@ public class UserServlet extends BaseServlet {
         // 获取内容
         String content = properties.getProperty("content");
         // 替换占位符
-        content = MessageFormat.format(content,form.getCode());
+        content = MessageFormat.format(content, form.getCode());
         // 发邮件
         Session session = MailUtils.createSession(host, uname, pwd);
-        Mail mail = new Mail(from, email,subject,content);
+        Mail mail = new Mail(from, email, subject, content);
         try {
-            MailUtils.send(session,mail);
+            MailUtils.send(session, mail);
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
@@ -117,6 +118,13 @@ public class UserServlet extends BaseServlet {
         return "f:/jsps/msg.jsp";
     }
 
+    /**
+     * @Description: 用户激活
+     * @auther: yusiming
+     * @date: 19:52 2018/9/4
+     * @param: [request, response]
+     * @return: java.lang.String
+     */
     public String active(HttpServletRequest request, HttpServletResponse response) throws ServletException,
             IOException {
         System.out.println("激活成功");
