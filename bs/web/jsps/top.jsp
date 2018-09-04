@@ -42,7 +42,7 @@
 			您好：${sessionScope.user.username}&nbsp;&nbsp;|&nbsp;&nbsp;
 			<a href="<c:url value='/jsps/cart/list.jsp'/>" target="body">我的购物车</a>&nbsp;&nbsp;|&nbsp;&nbsp;
 			<a href="<c:url value='/jsps/order/list.jsp'/>" target="body">我的订单</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-			<a href="javascript:alert('您已经退出');" target="_parent">退出</a>
+			<a href="<c:url value="/UserServlet?method=quit"/>" target="_parent">退出</a>
 		</c:otherwise>
 	</c:choose>
 </div>

@@ -162,12 +162,26 @@ public class UserServlet extends BaseServlet {
         User form = CommonUtils.toBean(request.getParameterMap(), User.class);
         try {
             User user = userService.login(form);
-            request.getSession().setAttribute("user",user);
+            request.getSession().setAttribute("user", user);
             return "r:/index.jsp";
         } catch (UserException e) {
-            request.setAttribute("msg",e.getMessage());
-            request.setAttribute("form",form);
+            request.setAttribute("msg", e.getMessage());
+            request.setAttribute("form", form);
             return "f:/jsps/user/login.jsp";
         }
+    }
+
+    /**
+     * @Description: 用户退出
+     * @auther: yusiming
+     * @date: 22:28 2018/9/4
+     * @param: [request, response]
+     * @return: java.lang.String
+     */
+    public String quit(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+            IOException {
+        // 销毁session
+        request.getSession().invalidate();
+        return "r:/index.jsp";
     }
 }
