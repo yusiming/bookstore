@@ -9,7 +9,7 @@
     <base target="body"/>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
+	<meta http-equiv="expires" content="0">
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
 	<meta http-equiv="content-type" content="text/html;charset=utf-8">
@@ -22,8 +22,8 @@
 			text-align: center;
 		}
 		div {
-			background: #87CEFA; 
-			margin: 3px; 
+			background: #87CEFA;
+			margin: 3px;
 			padding: 3px;
 		}
 		a {
@@ -31,21 +31,15 @@
 		}
 	</style>
   </head>
-  
+
   <body>
 <div>
-	<a href="<c:url value='/jsps/book/list.jsp'/>">全部分类</a>
+	<a href="<c:url value='/BookServlet?method=findAll'/>">全部分类</a>
 </div>
-
-
-<div>
-	<a href="<c:url value='/jsps/book/list.jsp'/>">JavaSE分类</a>
-</div>
-<div>
-	<a href="<c:url value='/jsps/book/list.jsp'/>">JavaEE分类</a>
-</div>
-<div>
-	<a href="<c:url value='/jsps/book/list.jsp'/>">Javascript分类</a>
-</div>
+<c:forEach items="${requestScope.categoryList}" var="category">
+    <div>
+        <a href="<c:url value='/BookServlet?method=findByCategory&cid=${category.cid}'/>">${category.cname}</a>
+    </div>
+</c:forEach>
   </body>
 </html>
