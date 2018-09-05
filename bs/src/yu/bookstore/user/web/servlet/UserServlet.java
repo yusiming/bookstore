@@ -4,6 +4,7 @@ import cn.itcast.commons.CommonUtils;
 import cn.itcast.mail.Mail;
 import cn.itcast.mail.MailUtils;
 import cn.itcast.servlet.BaseServlet;
+import yu.bookstore.cart.domain.Cart;
 import yu.bookstore.user.domain.User;
 import yu.bookstore.user.service.UserException;
 import yu.bookstore.user.service.UserService;
@@ -163,6 +164,8 @@ public class UserServlet extends BaseServlet {
         try {
             User user = userService.login(form);
             request.getSession().setAttribute("user", user);
+            // 给登陆过的用户添加购物车
+            request.getSession().setAttribute("cart", new Cart());
             return "r:/index.jsp";
         } catch (UserException e) {
             request.setAttribute("msg", e.getMessage());
