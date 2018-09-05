@@ -16,6 +16,13 @@ import java.util.List;
 public class BookDao {
     private TxQueryRunner queryRunner = new TxQueryRunner();
 
+    /**
+     * @Description: 查询所有图书
+     * @auther: yusiming
+     * @date: 13:05 2018/9/5
+     * @param: []
+     * @return: java.util.List<yu.bookstore.book.domain.Book>
+     */
     public List<Book> findAll() {
         String sql = "select * from book";
         try {
@@ -25,6 +32,13 @@ public class BookDao {
         }
     }
 
+    /**
+     * @Description: 根据图书分类查询图书
+     * @auther: yusiming
+     * @date: 13:06 2018/9/5
+     * @param: [cid]
+     * @return: java.util.List<yu.bookstore.book.domain.Book>
+     */
     public List<Book> findByCategory(String cid) {
         String sql = "select * from book where cid=?";
         try {
@@ -34,6 +48,13 @@ public class BookDao {
         }
     }
 
+    /**
+     * @Description: 根据bid 查询单个图书的详细信息
+     * @auther: yusiming
+     * @date: 13:06 2018/9/5
+     * @param: [bid]
+     * @return: yu.bookstore.book.domain.Book
+     */
     public Book load(String bid) {
         String sql = "select * from book where bid=?";
         try {

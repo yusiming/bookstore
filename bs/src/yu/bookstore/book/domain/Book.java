@@ -5,7 +5,7 @@ import yu.bookstore.category.domain.Category;
 /**
  * @Auther: yusiming
  * @Date: 2018/9/4 23:43
- * @Description:
+ * @Description: book的领域对象
  */
 public class Book {
     private String bid;
@@ -13,6 +13,7 @@ public class Book {
     private double price;
     private String author;
     private String image;
+    // 一个图书属于一个分类
     private Category category;
 
     public String getBid() {
