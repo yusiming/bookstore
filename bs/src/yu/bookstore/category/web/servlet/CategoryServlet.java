@@ -18,14 +18,22 @@ import java.io.IOException;
 public class CategoryServlet extends BaseServlet {
     private CategoryService categoryService = new CategoryService();
 
+    /**
+     * @Description: 查询所有图书分类
+     * @auther: yusiming
+     * @date: 13:01 2018/9/5
+     * @param: [request, response]
+     * @return: java.lang.String
+     */
     public String findAll(HttpServletRequest request, HttpServletResponse response) throws ServletException,
             IOException {
-        request.setAttribute("categoryList",categoryService.findAll());
+        /*
+         * 1.调用Service的findAll方法
+         * 2.保存信息到request域中
+         * 3.转发到left.jsp
+         * 4.left.jsp循环显示
+         */
+        request.setAttribute("categoryList", categoryService.findAll());
         return "f:/jsps/left.jsp";
-    }
-
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException,
-            IOException {
-
     }
 }

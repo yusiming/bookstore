@@ -15,10 +15,17 @@ import java.util.List;
 public class CategoryDao {
     private TxQueryRunner queryRunner = new TxQueryRunner();
 
+    /**
+     * @Description: 查询所有图书分类
+     * @auther: yusiming
+     * @date: 12:59 2018/9/5
+     * @param: []
+     * @return: java.util.List<yu.bookstore.category.domain.Category>
+     */
     public List<Category> findAll() {
         String sql = "select * from category";
         try {
-            return queryRunner.query(sql,new BeanListHandler<>(Category.class));
+            return queryRunner.query(sql, new BeanListHandler<>(Category.class));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

@@ -13,6 +13,13 @@ import java.util.List;
 public class CategoryService {
     private CategoryDao categoryDao = new CategoryDao();
 
+    /**
+     * @Description: 查询所有图书分类
+     * @auther: yusiming
+     * @date: 13:00 2018/9/5
+     * @param: []
+     * @return: java.util.List<yu.bookstore.category.domain.Category>
+     */
     public List<Category> findAll() {
         return categoryDao.findAll();
     }
