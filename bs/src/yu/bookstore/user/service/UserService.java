@@ -59,7 +59,6 @@ public class UserService {
      * @return: void
      */
     public User login(User form) throws UserException {
-        System.out.println("login");
         /*
          * 1.得到用户名和密码
          * 2.根据用户名查询用户
