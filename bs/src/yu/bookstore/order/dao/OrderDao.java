@@ -55,7 +55,7 @@ public class OrderDao {
         try {
             // 执行批处理
             // batch方法的参数，(String sql,Object[][] params)，对于二维数组中的每一个一维数组，都使用该sql模板执行一遍
-            txQueryRunner.batch("", params);
+            txQueryRunner.batch(sql, params);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
