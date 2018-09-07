@@ -78,8 +78,7 @@ public class OrderService {
          * 2.若state为3，修改状态
          * 3.若不为3，抛异常
          */
-        Order order = orderDao.loadOrder(oid);
-        if (order.getState() == 3) {
+        if (orderDao.getOrderStateByOid(oid) == 3) {
             orderDao.changeOrderState(oid);
         } else {
             throw new OrderException("确认收货失败");

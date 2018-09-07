@@ -5,6 +5,7 @@ import cn.itcast.jdbc.TxQueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.MapListHandler;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
 import yu.bookstore.book.domain.Book;
 import yu.bookstore.order.domain.Order;
 import yu.bookstore.order.domain.OrderItem;
@@ -167,6 +168,22 @@ public class OrderDao {
         String sql = "update orders set state=state+1 where oid=?";
         try {
             txQueryRunner.update(sql, oid);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * @Description: 根据oid查询订单状态
+     * @auther: yusiming
+     * @date: 23:50 2018/9/7
+     * @param: []
+     * @return: int
+     */
+    public int getOrderStateByOid(String oid) {
+        String sql = "select state from orders where oid=?";
+        try {
+            return (Integer) txQueryRunner.query(sql, new ScalarHandler(), oid);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
