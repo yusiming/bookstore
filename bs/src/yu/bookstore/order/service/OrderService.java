@@ -5,6 +5,7 @@ import yu.bookstore.order.dao.OrderDao;
 import yu.bookstore.order.domain.Order;
 
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * @Auther: yusiming
@@ -40,5 +41,16 @@ public class OrderService {
             }
             throw new RuntimeException(e);
         }
+    }
+
+    /**
+     * @Description: 根据用户的所有订单
+     * @auther: yusiming
+     * @date: 21:34 2018/9/7
+     * @param: [uid]
+     * @return: java.util.List<yu.bookstore.order.domain.Order>
+     */
+    public List<Order> myOrders(String uid) {
+        return orderDao.findOrdersByUid(uid);
     }
 }

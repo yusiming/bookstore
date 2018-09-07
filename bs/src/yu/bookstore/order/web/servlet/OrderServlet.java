@@ -74,4 +74,25 @@ public class OrderServlet extends BaseServlet {
         // 转发到order/desc.jsp页面显示订单信息
         return "f:/jsps/order/desc.jsp";
     }
+
+    /**
+     * @Description: 完成我的订单功能
+     * @auther: yusiming
+     * @date: 21:30 2018/9/7
+     * @param: [request, response]
+     * @return: java.lang.String
+     */
+    public String myOrders(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+            IOException {
+        /*
+         * 1.从session中得到user对象，
+         * 2.根据uid调用service的myOrders方法，得到所有订单
+         * 3.保存所有订单到request域中
+         * 4.转发到order/list,jsp显示所有订单
+         */
+        User user = (User) request.getSession().getAttribute("user");
+        List<Order> orderList = orderService.myOrders(user.getUid());
+        request.setAttribute("orderList", orderList);
+        return "f:/jsps/order/list.jsp";
+    }
 }

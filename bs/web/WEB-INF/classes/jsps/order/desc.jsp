@@ -70,9 +70,9 @@
             <td width="15%">
                 <div><img src="<c:url value='${orderItem.book.image}'/>" height="75"/></div>
             </td>
-            <td>${orderItem.book.bname}</td>
-            <td>${orderItem.book.price}</td>
-            <td>${orderItem.book.author}</td>
+            <td>书名：${orderItem.book.bname}</td>
+            <td>价格：${orderItem.book.price}</td>
+            <td>作者：${orderItem.book.author}</td>
             <td>数量：${orderItem.count}</td>
             <td>小计：${orderItem.subtotal}元</td>
         </tr>

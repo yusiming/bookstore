@@ -1,12 +1,18 @@
 package yu.bookstore.order.dao;
 
+import cn.itcast.commons.CommonUtils;
 import cn.itcast.jdbc.TxQueryRunner;
+import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.apache.commons.dbutils.handlers.MapListHandler;
+import yu.bookstore.book.domain.Book;
 import yu.bookstore.order.domain.Order;
 import yu.bookstore.order.domain.OrderItem;
 
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Auther: yusiming
@@ -59,5 +65,73 @@ public class OrderDao {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    /**
+     * @Description: 根据用户uid查询所有订单
+     * @auther: yusiming
+     * @date: 21:35 2018/9/7
+     * @param: []
+     * @return: java.util.List<yu.bookstore.order.domain.Order>
+     */
+    public List<Order> findOrdersByUid(String uid) {
+        /*
+         * 1.根据uid得到所有订单
+         * 2.为每一个订单添加订单条目
+         * 3.返回所有订单
+         */
+        String sql = "select * from orders where uid=?";
+        try {
+            List<Order> orderList = txQueryRunner.query(sql, new BeanListHandler<>(Order.class), uid);
+            for (Order order : orderList) {
+                // 为每一个订单添加订单条目
+                setOrderItemsToOrder(order);
+            }
+            return orderList;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * @Description: 为OrderList中的每一个Order添加订单条目
+     * @auther: yusiming
+     * @date: 21:42 2018/9/7
+     * @param: [orderList]
+     * @return: void
+     */
+    private void setOrderItemsToOrder(Order order) {
+        /*
+         * 1.循环遍历List，得到每一个订单的oid
+         * 2.根据oid查询OrderItem得到OrderItemList
+         * 3.为每一个OrderItem设置Book
+         * 3.为Order设置OrderItemList
+         */
+        String sql = "select * from orderitem i,book b where i.bid = b.bid and oid=?";
+        try {
+            List<Map<String, Object>> mapList = txQueryRunner.query(sql, new MapListHandler(), order.getOid());
+            List<OrderItem> orderItemList = getOrderItemList(mapList);
+            order.setOrderItemList(orderItemList);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * @Description: 将mapList转换为OrderItemList
+     * @auther: yusiming
+     * @date: 22:11 2018/9/7
+     * @param: [mapList]
+     * @return: java.util.List<yu.bookstore.order.domain.OrderItem>
+     */
+    private List<OrderItem> getOrderItemList(List<Map<String, Object>> mapList) {
+        List<OrderItem> orderItemList = new ArrayList<>();
+        for (Map<String, Object> map : mapList) {
+            OrderItem orderItem = CommonUtils.toBean(map, OrderItem.class);
+            Book book = CommonUtils.toBean(map, Book.class);
+            orderItem.setBook(book);
+            orderItemList.add(orderItem);
+        }
+        return orderItemList;
     }
 }
