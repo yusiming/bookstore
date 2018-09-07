@@ -69,8 +69,8 @@
                         <a href="<c:url value='/OrderServlet?method=loadOrder&oid=${order.oid}'/>">付款</a>
                     </c:when>
                     <c:when test="${order.state eq 2}">等待发货</c:when>
-                    <c:when test="${order.state eq 1}"><a href="javascript:alert('已确认收货！');">确认收货</a></c:when>
-                    <c:when test="${order.state eq 1}">订单结束</c:when>
+                    <c:when test="${order.state eq 3}"><a href="javascript:alert('已确认收货！');">确认收货</a></c:when>
+                    <c:when test="${order.state eq 4}">订单结束</c:when>
                 </c:choose>　
             </td>
         </tr>
