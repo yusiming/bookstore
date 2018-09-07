@@ -6,6 +6,7 @@ import yu.bookstore.cart.domain.Cart;
 import yu.bookstore.cart.domain.CartItem;
 import yu.bookstore.order.domain.Order;
 import yu.bookstore.order.domain.OrderItem;
+import yu.bookstore.order.service.OrderException;
 import yu.bookstore.order.service.OrderService;
 import yu.bookstore.user.domain.User;
 
@@ -15,7 +16,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 
 /**
  * @Auther: yusiming
@@ -114,5 +118,30 @@ public class OrderServlet extends BaseServlet {
         Order order = orderService.loadOrder(request.getParameter("oid"));
         request.setAttribute("order", order);
         return "f:/jsps/order/desc.jsp";
+    }
+
+    /**
+     * @Description: 点击确认收货，完成收货
+     * @auther: yusiming
+     * @date: 23:21 2018/9/7
+     * @param: [request, response]
+     * @return: java.lang.String
+     */
+    public String confirmReceipt(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+            IOException {
+        /*
+         * 1.得到订单oid
+         * 2.校验订单的状态是否为3
+         * 3.保存信息到request
+         * 4.转发到msg.jsp页面显示信息
+         */
+        String oid = request.getParameter("oid");
+        try {
+            orderService.confirmReceipt(oid);
+            request.setAttribute("msg", "收货成功");
+        } catch (OrderException e) {
+            request.setAttribute("msg", e.getMessage());
+        }
+        return "f:jsps/order/msg.jsp";
     }
 }

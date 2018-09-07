@@ -64,4 +64,25 @@ public class OrderService {
     public Order loadOrder(String oid) {
         return orderDao.loadOrder(oid);
     }
+
+    /**
+     * @Description: 订单确认收货
+     * @auther: yusiming
+     * @date: 23:32 2018/9/7
+     * @param: [oid]
+     * @return: void
+     */
+    public void confirmReceipt(String oid) throws OrderException {
+        /*
+         * 1.得到order
+         * 2.若state为3，修改状态
+         * 3.若不为3，抛异常
+         */
+        Order order = orderDao.loadOrder(oid);
+        if (order.getState() == 3) {
+            orderDao.changeOrderState(oid);
+        } else {
+            throw new OrderException("确认收货失败");
+        }
+    }
 }

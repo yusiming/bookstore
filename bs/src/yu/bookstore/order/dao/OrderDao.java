@@ -155,4 +155,20 @@ public class OrderDao {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * @Description: 将订单的状态+1
+     * @auther: yusiming
+     * @date: 23:38 2018/9/7
+     * @param: [oid, state]
+     * @return: void
+     */
+    public void changeOrderState(String oid) {
+        String sql = "update orders set state=state+1 where oid=?";
+        try {
+            txQueryRunner.update(sql, oid);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
