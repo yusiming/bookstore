@@ -95,4 +95,24 @@ public class OrderServlet extends BaseServlet {
         request.setAttribute("orderList", orderList);
         return "f:/jsps/order/list.jsp";
     }
+
+    /**
+     * @Description: 点击 付款 加载单个订单
+     * @auther: yusiming
+     * @date: 22:56 2018/9/7
+     * @param: [request, response]
+     * @return: java.lang.String
+     */
+    public String loadOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+            IOException {
+        /*
+         * 1.得到参数oid
+         * 2.根据oid加载Order
+         * 3.把保存Order到request中
+         * 4.转发到desc.jsp页面显示信息
+         */
+        Order order = orderService.loadOrder(request.getParameter("oid"));
+        request.setAttribute("order", order);
+        return "f:/jsps/order/desc.jsp";
+    }
 }

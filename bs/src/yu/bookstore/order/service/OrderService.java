@@ -53,4 +53,15 @@ public class OrderService {
     public List<Order> myOrders(String uid) {
         return orderDao.findOrdersByUid(uid);
     }
+
+    /**
+     * @Description: 加载单个订单
+     * @auther: yusiming
+     * @date: 23:15 2018/9/7
+     * @param: [oid]
+     * @return: yu.bookstore.order.domain.Order
+     */
+    public Order loadOrder(String oid) {
+        return orderDao.loadOrder(oid);
+    }
 }

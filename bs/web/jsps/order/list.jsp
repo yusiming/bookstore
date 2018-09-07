@@ -65,7 +65,9 @@
                 成交时间：${order.ordertime}　
                 金额：<font color="red"><b>${order.total}</b></font>
                 <c:choose>
-                    <c:when test="${order.state eq 1}"><a href="<c:url value='/jsps/order/desc.jsp'/>">付款</a></c:when>
+                    <c:when test="${order.state eq 1}">
+                        <a href="<c:url value='/OrderServlet?method=loadOrder&oid=${order.oid}'/>">付款</a>
+                    </c:when>
                     <c:when test="${order.state eq 2}">等待发货</c:when>
                     <c:when test="${order.state eq 1}"><a href="javascript:alert('已确认收货！');">确认收货</a></c:when>
                     <c:when test="${order.state eq 1}">订单结束</c:when>

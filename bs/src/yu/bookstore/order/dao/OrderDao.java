@@ -2,6 +2,7 @@ package yu.bookstore.order.dao;
 
 import cn.itcast.commons.CommonUtils;
 import cn.itcast.jdbc.TxQueryRunner;
+import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.MapListHandler;
 import yu.bookstore.book.domain.Book;
@@ -133,5 +134,25 @@ public class OrderDao {
             orderItemList.add(orderItem);
         }
         return orderItemList;
+    }
+
+    /**
+     * @Description: 根据oid查询Order
+     * @auther: yusiming
+     * @date: 23:06 2018/9/7
+     * @param: [oid]
+     * @return: yu.bookstore.order.domain.Order
+     */
+    public Order loadOrder(String oid) {
+        String sql = "select * from orders where oid=?";
+        try {
+            Order order = txQueryRunner.query(sql, new BeanHandler<>(Order.class), oid);
+            System.out.println(order);
+            // 设置orderItems
+            setOrderItemsToOrder(order);
+            return order;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
