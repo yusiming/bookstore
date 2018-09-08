@@ -16,10 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * @Auther: yusiming
@@ -143,5 +140,98 @@ public class OrderServlet extends BaseServlet {
             request.setAttribute("msg", e.getMessage());
         }
         return "f:jsps/order/msg.jsp";
+    }
+
+    /**
+     * @Description: 使用易宝支付，
+     * @auther: yusiming
+     * @date: 21:47 2018/9/8
+     * @param: [request, response]
+     * @return: java.lang.String
+     */
+    public String pay(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+            IOException {
+        Properties properties = new Properties();
+        properties.load(this.getClass().getClassLoader().getResourceAsStream("merchantInfo.properties"));
+        String p0_Cmd = "Buy";
+        String p1_MerId = properties.getProperty("p1_MerId");
+        String p2_Order = request.getParameter("oid");
+        String p3_Amt = "0.01";
+        String p4_Cur = "CNY";
+        String p5_Pid = "";
+        String p6_Pcat = "";
+        String p7_Pdesc = "";
+        String p8_Url = properties.getProperty("p8_Url");
+        String p9_SAF = "";
+        String pa_MP = "";
+        String pd_FrpId = request.getParameter("pd_FrpId");
+        String pr_NeedResponse = "1";
+        String hmac = PaymentUtil.buildHmac(p0_Cmd, p1_MerId,
+                p2_Order, p3_Amt, p4_Cur, p5_Pid, p6_Pcat,
+                p7_Pdesc, p8_Url, p9_SAF, pa_MP, pd_FrpId,
+                pr_NeedResponse, properties.getProperty("keyValue"));
+        String url = "https://www.yeepay.com/app-merchant-proxy/node" + "?p0_Cmd=" + p0_Cmd +
+                "&p1_MerId=" + p1_MerId +
+                "&p2_Order=" + p2_Order +
+                "&p3_Amt=" + p3_Amt +
+                "&p4_Cur=" + p4_Cur +
+                "&p5_Pid=" + p5_Pid +
+                "&p6_Pcat=" + p6_Pcat +
+                "&p7_Pdesc=" + p7_Pdesc +
+                "&p8_Url=" + p8_Url +
+                "&p9_SAF=" + p9_SAF +
+                "&pa_MP=" + pa_MP +
+                "&pd_FrpId=" + pd_FrpId +
+                "&pr_NeedResponse=" + pr_NeedResponse +
+                "&hmac=" + hmac;
+        response.sendRedirect(url);
+        return null;
+    }
+
+    /**
+     * @Description: 易宝回调方法
+     * @auther: yusiming
+     * @date: 23:16 2018/9/8
+     * @param: [request, response]
+     * @return: java.lang.String
+     */
+    public String back(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+            IOException {
+        /*
+         * 1.得12个到参数
+         * 2.判断是否为易宝调用该方法
+         * 3.若校验成功，判断订单状态是否为1，若为1，修改订单状态为2，若为其他什么也不做
+         * 4.给出返回“success”字符串
+         */
+        String p1_MerId = request.getParameter("p1_MerId");
+        String r0_Cmd = request.getParameter("r0_Cmd");
+        String r1_Code = request.getParameter("r1_Code");
+        String r2_TrxId = request.getParameter("r2_TrxId");
+        String r3_Amt = request.getParameter("r3_Amt");
+        String r4_Cur = request.getParameter("r4_Cur");
+        String r5_Pid = request.getParameter("r5_Pid");
+        String r6_Order = request.getParameter("r6_Order");
+        String r7_Uid = request.getParameter("r7_Uid");
+        String r8_MP = request.getParameter("r8_MP");
+        String r9_BType = request.getParameter("r9_BType");
+        String hmac = request.getParameter("hmac");
+
+        Properties properties = new Properties();
+        properties.load(this.getClass().getClassLoader().getResourceAsStream("merchantInfo.properties"));
+        String keyValue = properties.getProperty("keyValue");
+        boolean bool = PaymentUtil.verifyCallback(hmac, p1_MerId, r0_Cmd, r1_Code, r2_TrxId, r3_Amt, r4_Cur, r5_Pid,
+                r6_Order, r7_Uid, r8_MP, r9_BType, keyValue);
+        if (!bool) {
+            request.setAttribute("msg", "请勿做出危险操作");
+            return "f:/jsps/order/msg.jsp";
+        }
+        // 校验成功，修改订单状态
+        orderService.pay(r6_Order);
+        // 判断回调方式，若为2，给出响应
+        if (r9_BType.equals("2")) {
+            response.getWriter().print("success");
+        }
+        request.setAttribute("msg", "您支付成功，请等待买家发货");
+        return "f:/jsps/order/msg.jsp";
     }
 }

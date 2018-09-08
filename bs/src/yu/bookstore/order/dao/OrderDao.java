@@ -148,7 +148,6 @@ public class OrderDao {
         String sql = "select * from orders where oid=?";
         try {
             Order order = txQueryRunner.query(sql, new BeanHandler<>(Order.class), oid);
-            System.out.println(order);
             // 设置orderItems
             setOrderItemsToOrder(order);
             return order;

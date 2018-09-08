@@ -84,4 +84,17 @@ public class OrderService {
             throw new OrderException("确认收货失败");
         }
     }
+
+    /**
+     * @Description: 若订单状态为1，修改为2
+     * @auther: yusiming
+     * @date: 23:40 2018/9/8
+     * @param: [r6_order]
+     * @return: void
+     */
+    public void pay(String r6_order) {
+        if (orderDao.getOrderStateByOid(r6_order) == 1) {
+            orderDao.changeOrderState(r6_order);
+        }
+    }
 }
