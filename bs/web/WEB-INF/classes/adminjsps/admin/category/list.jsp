@@ -31,7 +31,6 @@
         }
     </style>
 </head>
-
 <body>
 <h2 style="text-align: center;">分类列表</h2>
 <table align="center" border="1" cellpadding="0" cellspacing="0">
@@ -40,13 +39,15 @@
         <th>操作</th>
     </tr>
     <c:forEach items="${requestScope.request_categoryList}" var="category">
-    <tr bordercolor="rgb(78,78,78)">
-        <td>${category.cname}</td>
-        <td>
-            <a href="<c:url value=''/>">修改</a>
-            <a href="<c:url value=''/>">删除</a>
-        </td>
-    </tr>
+        <tr bordercolor="rgb(78,78,78)">
+            <td>${category.cname}</td>
+            <td>
+                <a onclick="deleteCategory();"
+                   href="<c:url value='/AdminCategoryServlet?method=delete&cid='/>${category.cid}">修改
+                </a>
+                <a href="<c:url value='/AdminCategoryServlet?method=delete&cid='/>${category.cid}">删除</a>
+            </td>
+        </tr>
     </c:forEach>
 </table>
 </body>

@@ -3,6 +3,7 @@ package yu.bookstore.category.web.servlet.admin;
 import cn.itcast.commons.CommonUtils;
 import cn.itcast.servlet.BaseServlet;
 import yu.bookstore.category.domain.Category;
+import yu.bookstore.category.service.CategoryException;
 import yu.bookstore.category.service.CategoryService;
 
 import javax.servlet.ServletException;
@@ -53,6 +54,29 @@ public class AdminCategoryServlet extends BaseServlet {
         Category category = CommonUtils.toBean(request.getParameterMap(), Category.class);
         category.setCid(CommonUtils.uuid());
         categoryService.addCategory(category);
+        return findAll(request, response);
+    }
+
+    /**
+     * @Description: 删除图书分类
+     * @auther: yusiming
+     * @date: 21:49 2018/9/9
+     * @param: [request, response]
+     * @return: java.lang.String
+     */
+    public String delete(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+            IOException {
+        /*
+         * 1.得到需要删除的cid
+         * 2.调用service的deleteCategory方法
+         * 3.调用findAll
+         */
+        try {
+            categoryService.deleteCategory(request.getParameter("cid"));
+        } catch (CategoryException e) {
+            request.setAttribute("msg", e.getMessage());
+            return "f:/adminjsps/msg.jsp";
+        }
         return findAll(request, response);
     }
 }

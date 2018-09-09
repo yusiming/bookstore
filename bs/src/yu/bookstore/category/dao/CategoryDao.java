@@ -63,4 +63,20 @@ public class CategoryDao {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * @Description: 根据cname删除图书分类
+     * @auther: yusiming
+     * @date: 21:55 2018/9/9
+     * @param: [cname]
+     * @return: void
+     */
+    public void deleteCategory(String cid) {
+        String sql = "delete from category where cid=?";
+        try {
+            queryRunner.update(sql, cid);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

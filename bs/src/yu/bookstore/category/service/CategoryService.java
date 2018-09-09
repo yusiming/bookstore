@@ -1,5 +1,7 @@
 package yu.bookstore.category.service;
 
+import yu.bookstore.book.dao.BookDao;
+import yu.bookstore.book.domain.Book;
 import yu.bookstore.category.dao.CategoryDao;
 import yu.bookstore.category.domain.Category;
 
@@ -12,6 +14,7 @@ import java.util.List;
  */
 public class CategoryService {
     private CategoryDao categoryDao = new CategoryDao();
+    private BookDao bookDao = new BookDao();
 
     /**
      * @Description: 查询所有图书分类
@@ -39,6 +42,22 @@ public class CategoryService {
          */
         if (categoryDao.findCategoryByCname(category.getCname()) == null) {
             categoryDao.add(category);
+        }
+    }
+
+    /**
+     * @Description: 删除图书分类，若该分类下存在图书则不能删除
+     * @auther: yusiming
+     * @date: 21:54 2018/9/9
+     * @param: [cname]
+     * @return: void
+     */
+    public void deleteCategory(String cid) throws CategoryException {
+        List<Book> bookList = bookDao.findByCategory(cid);
+        if (bookList.size() != 0) {
+            throw new CategoryException("该分类存在图书，不能删除");
+        } else {
+            categoryDao.deleteCategory(cid);
         }
     }
 }
