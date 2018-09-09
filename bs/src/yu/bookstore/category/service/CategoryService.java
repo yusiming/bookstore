@@ -23,4 +23,22 @@ public class CategoryService {
     public List<Category> findAll() {
         return categoryDao.findAll();
     }
+
+    /**
+     * @Description: 添加图书分类
+     * @auther: yusiming
+     * @date: 21:29 2018/9/9
+     * @param: [category]
+     * @return: void
+     */
+    public void addCategory(Category category) {
+        /*
+         * 1.使用cname查询是否已经有这个分类，
+         * 2.若已经有这个分类，什么都不做
+         * 3.若没有过这个分类，添加分类
+         */
+        if (categoryDao.findCategoryByCname(category.getCname()) == null) {
+            categoryDao.add(category);
+        }
+    }
 }
