@@ -79,4 +79,20 @@ public class CategoryDao {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * @Description: 根据cid查询份分类信息
+     * @auther: yusiming
+     * @date: 19:57 2018/9/10
+     * @param: [cid]
+     * @return: yu.bookstore.category.domain.Category
+     */
+    public Category loadCategory(String cid) {
+        String sql = "select * from category where cid=?";
+        try {
+            return queryRunner.query(sql, new BeanHandler<>(Category.class), cid);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

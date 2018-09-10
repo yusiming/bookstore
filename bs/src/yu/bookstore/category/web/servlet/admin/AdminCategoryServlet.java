@@ -79,4 +79,22 @@ public class AdminCategoryServlet extends BaseServlet {
         }
         return findAll(request, response);
     }
+
+    /**
+     * @Description: 改修之前得到分类的信息，转发到mod.jsp显示分类 信息
+     * @auther: yusiming
+     * @date: 19:53 2018/9/10
+     * @param: [request, response]
+     * @return: java.lang.String
+     */
+    public String beforeEdit(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+            IOException {
+        /*
+         * 1.得到cid
+         * 2.得到Category对象
+         * 3.转发到mod.jsp页面实现信息
+         */
+        request.setAttribute("request_category", categoryService.loadCategory(request.getParameter("cid")));
+        return "f:/adminjsps/admin/category/mod.jsp";
+    }
 }

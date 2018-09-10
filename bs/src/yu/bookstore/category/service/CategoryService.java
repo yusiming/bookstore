@@ -60,4 +60,15 @@ public class CategoryService {
             categoryDao.deleteCategory(cid);
         }
     }
+
+    /**
+     * @Description: 根据cid得到Category对象
+     * @auther: yusiming
+     * @date: 19:56 2018/9/10
+     * @param: [cid]
+     * @return: yu.bookstore.category.domain.Category
+     */
+    public Category loadCategory(String cid) {
+        return categoryDao.loadCategory(cid);
+    }
 }
