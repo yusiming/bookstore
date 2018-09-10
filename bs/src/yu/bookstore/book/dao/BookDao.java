@@ -1,12 +1,15 @@
 package yu.bookstore.book.dao;
 
+import cn.itcast.commons.CommonUtils;
 import cn.itcast.jdbc.TxQueryRunner;
-import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.apache.commons.dbutils.handlers.MapHandler;
 import yu.bookstore.book.domain.Book;
+import yu.bookstore.category.domain.Category;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Auther: yusiming
@@ -49,7 +52,7 @@ public class BookDao {
     }
 
     /**
-     * @Description: 根据bid 查询单个图书的详细信息
+     * @Description: 根据bid 查询单个图书的详细信息，并为其设置Category对象
      * @auther: yusiming
      * @date: 13:06 2018/9/5
      * @param: [bid]
@@ -58,7 +61,11 @@ public class BookDao {
     public Book load(String bid) {
         String sql = "select * from book where bid=?";
         try {
-            return queryRunner.query(sql, new BeanHandler<>(Book.class), bid);
+            Map<String, Object> map = queryRunner.query(sql, new MapHandler(), bid);
+            Book book = CommonUtils.toBean(map, Book.class);
+            Category category = CommonUtils.toBean(map, Category.class);
+            book.setCategory(category);
+            return book;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
