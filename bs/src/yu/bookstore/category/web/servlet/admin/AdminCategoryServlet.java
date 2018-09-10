@@ -97,4 +97,23 @@ public class AdminCategoryServlet extends BaseServlet {
         request.setAttribute("request_category", categoryService.loadCategory(request.getParameter("cid")));
         return "f:/adminjsps/admin/category/mod.jsp";
     }
+
+    /**
+     * @Description: 修改分类信息，转发到list.jsp页面显示结果
+     * @auther: yusiming
+     * @date: 20:10 2018/9/10
+     * @param: [request, response]
+     * @return: java.lang.String
+     */
+    public String edit(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+            IOException {
+        Category category = CommonUtils.toBean(request.getParameterMap(), Category.class);
+        try {
+            categoryService.edit(category);
+        } catch (CategoryException e) {
+            request.setAttribute("msg", e.getMessage());
+            return "f:/adminjsps/msg.jsp";
+        }
+        return findAll(request, response);
+    }
 }

@@ -71,4 +71,19 @@ public class CategoryService {
     public Category loadCategory(String cid) {
         return categoryDao.loadCategory(cid);
     }
+
+    /**
+     * @Description: 修改分类名称
+     * @auther: yusiming
+     * @date: 20:12 2018/9/10
+     * @param: [category]
+     * @return: void
+     */
+    public void edit(Category category) throws CategoryException {
+        if (categoryDao.findCategoryByCname(category.getCname()) == null) {
+            categoryDao.editCategory(category.getCid(), category.getCname());
+        } else {
+            throw new CategoryException("该分类名称已经存在");
+        }
+    }
 }

@@ -43,9 +43,9 @@
             <td>${category.cname}</td>
             <td>
                 <a onclick="deleteCategory();"
-                   href="<c:url value='/AdminCategoryServlet?method=delete&cid='/>${category.cid}">修改
+                   href="<c:url value='/AdminCategoryServlet?method=beforeEdit&cid=${category.cid}'/>">修改
                 </a>
-                <a href="<c:url value='/AdminCategoryServlet?method=delete&cid='/>${category.cid}">删除</a>
+                <a href="<c:url value='/AdminCategoryServlet?method=delete&cid=${category.cid}'/>">删除</a>
             </td>
         </tr>
     </c:forEach>

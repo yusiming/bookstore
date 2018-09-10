@@ -95,4 +95,13 @@ public class CategoryDao {
             throw new RuntimeException(e);
         }
     }
+
+    public void editCategory(String cid, String cname) {
+        String sql = "update category set cname=? where cid=?";
+        try {
+            queryRunner.update(sql, cname, cid);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
