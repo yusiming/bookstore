@@ -40,21 +40,30 @@
 <div>
     <img src="<c:url value='/book_img/${requestScope.request_book.image}'/>" border="0"/>
 </div>
-<form style="margin:20px;" id="form" action="javascript:alert('操作成功！');" method="post">
+<form style="margin:20px;" id="form" action="<c:url value="/AdminBookServlet"/>" method="post">
+    <input id="method" type="hidden" name="method" value=""/>
+    <input type="hidden" name="bid" value="${requestScope.request_book.bid}"/>
+    <input id="method" type="hidden" name="image" value="${requestScope.request_book.image}"/>
     图书名称：<input type="text" name="bname" value="${requestScope.request_book.bname}"/><br/>
     图书单价：<input type="text" name="price" value="${requestScope.request_book.price}"/><br/>
     图书作者：<input type="text" name="author" value="${requestScope.request_book.author}"/><br/>
     图书分类：<select style="width: 150px; height: 20px;" name="cid">
     <c:forEach items="${requestScope.request_categoryList}" var="category">
-        <option value=""
-        <c:if test="${category.cid eq requestScope.request_book.category.cid}">
-            selected='selected'
-        </c:if>
+        <option value="${category.cid}"
+                <c:if test="${category.cid eq requestScope.request_book.category.cid}">
+                    selected='selected'
+                </c:if>
         >${category.cname}</option>
     </c:forEach>
 </select><br/>
-    <input type="submit" name="method" value="del" onclick="return confirm('是否真要删除该图书？');"/>
-    <input type="submit" name="method" value="mod"/>
+    <input type="submit" name="method" value="删除" onclick="setMothod('deleteBook');"/>
+    <input type="submit" name="method" value="修改" onclick="setMothod('edit');"/>
 </form>
 </body>
+<script type="text/javascript">
+    function setMothod(Method) {
+        var ele = document.getElementById("method");
+        ele.value = Method;
+    }
+</script>
 </html>

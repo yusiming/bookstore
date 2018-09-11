@@ -13,8 +13,17 @@ public class Book {
     private double price;
     private String author;
     private String image;
+    private boolean del;
     // 一个图书属于一个分类
     private Category category;
+
+    public boolean isDel() {
+        return del;
+    }
+
+    public void setDel(boolean del) {
+        this.del = del;
+    }
 
     public String getBid() {
         return bid;

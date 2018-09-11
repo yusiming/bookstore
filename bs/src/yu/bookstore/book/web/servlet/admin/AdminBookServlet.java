@@ -1,5 +1,6 @@
 package yu.bookstore.book.web.servlet.admin;
 
+import cn.itcast.commons.CommonUtils;
 import cn.itcast.servlet.BaseServlet;
 import yu.bookstore.book.domain.Book;
 import yu.bookstore.book.service.BookService;
@@ -78,5 +79,35 @@ public class AdminBookServlet extends BaseServlet {
          */
         request.setAttribute("request_categoryList", categoryService.findAll());
         return "f:/adminjsps/admin/book/add.jsp";
+    }
+
+    /**
+     * @Description:
+     * @auther: yusiming
+     * @date: 21:44 2018/9/11
+     * @param: [request, response]
+     * @return: java.lang.String
+     */
+    public String deleteBook(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+            IOException {
+        String bid = request.getParameter("bid");
+        bookService.delete(bid);
+        return findAll(request, response);
+    }
+
+    /**
+     * @Description: 修改图书
+     * @auther: yusiming
+     * @date: 22:11 2018/9/11
+     * @param: [request, response]
+     * @return: java.lang.String
+     */
+    public String edit(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+            IOException {
+        Book book = CommonUtils.toBean(request.getParameterMap(), Book.class);
+        Category category = CommonUtils.toBean(request.getParameterMap(), Category.class);
+        book.setCategory(category);
+        bookService.edit(book);
+        return findAll(request, response);
     }
 }

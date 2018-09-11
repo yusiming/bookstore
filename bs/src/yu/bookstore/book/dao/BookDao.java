@@ -27,7 +27,7 @@ public class BookDao {
      * @return: java.util.List<yu.bookstore.book.domain.Book>
      */
     public List<Book> findAll() {
-        String sql = "select * from book";
+        String sql = "select * from book where del=false";
         try {
             return queryRunner.query(sql, new BeanListHandler<>(Book.class));
         } catch (SQLException e) {
@@ -43,7 +43,7 @@ public class BookDao {
      * @return: java.util.List<yu.bookstore.book.domain.Book>
      */
     public List<Book> findByCategory(String cid) {
-        String sql = "select * from book where cid=?";
+        String sql = "select * from book where cid=? and del=false";
         try {
             return queryRunner.query(sql, new BeanListHandler<>(Book.class), cid);
         } catch (SQLException e) {
@@ -79,9 +79,43 @@ public class BookDao {
      * @return: void
      */
     public void addBook(Book book) {
-        String sql = "insert into book values(?,?,?,?,?,?)";
+        String sql = "insert into book values(?,?,?,?,?,?,?)";
         Object[] params = {book.getBid(), book.getBname(), book.getPrice(), book.getAuthor(), book.getImage(), book
-                .getCategory().getCid()};
+                .getCategory().getCid(), 0};
+        try {
+            queryRunner.update(sql, params);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * @Description: 删除图书
+     * @auther: yusiming
+     * @date: 21:42 2018/9/11
+     * @param: [bid]
+     * @return: void
+     */
+    public void delete(String bid) {
+        String sql = "update book set del=true where bid=?";
+        try {
+            queryRunner.update(sql, bid);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * @Description: 修改图书 信息
+     * @auther: yusiming
+     * @date: 22:13 2018/9/11
+     * @param: [book]
+     * @return: void
+     */
+    public void edit(Book book) {
+        String sql = "update book set bname=?,price=?,author=?,cid=? where bid=?";
+        Object[] params = {book.getBname(), book.getPrice(), book.getAuthor(), book
+                .getCategory().getCid(), book.getBid()};
         try {
             queryRunner.update(sql, params);
         } catch (SQLException e) {

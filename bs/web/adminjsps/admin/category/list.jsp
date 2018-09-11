@@ -45,7 +45,7 @@
                 <a onclick="deleteCategory();"
                    href="<c:url value='/AdminCategoryServlet?method=beforeEdit&cid=${category.cid}'/>">修改
                 </a>
-                <a href="<c:url value='/AdminCategoryServlet?method=delete&cid=${category.cid}'/>">删除</a>
+                <a onclick="return confirm('是否真要删除该图书？');" href="<c:url value='/AdminCategoryServlet?method=delete&cid=${category.cid}'/>">删除</a>
             </td>
         </tr>
     </c:forEach>

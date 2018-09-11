@@ -23,7 +23,7 @@
   <body>
   <h1>登录</h1>
 <p style="color: red; font-weight: 900">${msg }</p>
-<form action="<c:url value='/UserServlet'/>" method="post">
+<form action="<c:url value='/UserServlet'/>" method="post" target="_top">
 	<input type="hidden" name="method" value="login">
 	用户名：<input type="text" name="username" value="${requestScope.form.username}"/><br/>
 	密　码：<input type="password" name="password" value="${requestScope.form.password}"/><br/>

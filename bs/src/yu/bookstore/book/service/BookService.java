@@ -49,12 +49,26 @@ public class BookService {
     /**
      * @Description: 添加图书
      * @auther: yusiming
-     * @date: 23:08 2018/9/10
-     * @param: []
+     * @date: 21:41 2018/9/11
+     * @param: [book]
      * @return: void
-     * @param book
      */
     public void addBook(Book book) {
         bookDao.addBook(book);
+    }
+
+    /**
+     * @Description: 删除图书
+     * @auther: yusiming
+     * @date: 21:40 2018/9/11
+     * @param: []
+     * @return: void
+     */
+    public void delete(String bid) {
+        bookDao.delete(bid);
+    }
+
+    public void edit(Book book) {
+        bookDao.edit(book);
     }
 }
