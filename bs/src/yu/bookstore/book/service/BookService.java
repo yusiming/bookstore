@@ -45,4 +45,16 @@ public class BookService {
     public Book load(String bid) {
         return bookDao.load(bid);
     }
+
+    /**
+     * @Description: 添加图书
+     * @auther: yusiming
+     * @date: 23:08 2018/9/10
+     * @param: []
+     * @return: void
+     * @param book
+     */
+    public void addBook(Book book) {
+        bookDao.addBook(book);
+    }
 }

@@ -70,4 +70,22 @@ public class BookDao {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * @Description: 向数据库中添加图书
+     * @auther: yusiming
+     * @date: 23:09 2018/9/10
+     * @param: [book]
+     * @return: void
+     */
+    public void addBook(Book book) {
+        String sql = "insert into book values(?,?,?,?,?,?)";
+        Object[] params = {book.getBid(), book.getBname(), book.getPrice(), book.getAuthor(), book.getImage(), book
+                .getCategory().getCid()};
+        try {
+            queryRunner.update(sql, params);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

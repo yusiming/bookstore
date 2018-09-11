@@ -79,7 +79,7 @@
         <c:forEach items="${order.orderItemList}" var="orderItem">
             <tr bordercolor="gray" align="center">
                 <td width="15%">
-                    <div><img src="<c:url value='/${orderItem.book.image}'/>" height="75"/></div>
+                    <div><img src="<c:url value='/book_img/${orderItem.book.image}'/>" height="75"/></div>
                 </td>
                 <td>${orderItem.book.bname}</td>
                 <td>单价：${orderItem.book.price}元</td>

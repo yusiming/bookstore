@@ -57,7 +57,7 @@
 
 <body>
 <div>
-    <img src="<c:url value='/${book.image}'/>" border="0"/>
+    <img src="<c:url value='/book_img/${book.image}'/>" border="0"/>
 </div>
 <ul>
     <li>${book.bname}</li>

@@ -34,7 +34,8 @@
 <body>
 <c:forEach items="${requestScope.bookList}" var="book">
     <div class="icon">
-        <a href="<c:url value='/BookServlet?method=load&bid=${book.bid}'/>"><img src="<c:url value='/${book.image}'/>"
+        <a href="<c:url value='/BookServlet?method=load&bid=${book.bid}'/>"><img src="<c:url
+        value='/book_img/${book.image}'/>"
                                                                          border="0"/></a>
         <br/>
         <a href="<c:url value='/BookServlet?method=load&bid=${book.bid}'/>">${book.bname}</a>

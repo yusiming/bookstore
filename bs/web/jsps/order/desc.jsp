@@ -68,7 +68,7 @@
     <c:forEach items="${requestScope.order.orderItemList}" var="orderItem">
         <tr bordercolor="gray" align="center">
             <td width="15%">
-                <div><img src="<c:url value='${orderItem.book.image}'/>" height="75"/></div>
+                <div><img src="<c:url value='/book_img/${orderItem.book.image}'/>" height="75"/></div>
             </td>
             <td>书名：${orderItem.book.bname}</td>
             <td>价格：${orderItem.book.price}</td>

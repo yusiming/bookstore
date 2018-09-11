@@ -38,7 +38,7 @@
 
 <body>
 <div>
-    <img src="<c:url value='/${requestScope.request_book.image}'/>" border="0"/>
+    <img src="<c:url value='/book_img/${requestScope.request_book.image}'/>" border="0"/>
 </div>
 <form style="margin:20px;" id="form" action="javascript:alert('操作成功！');" method="post">
     图书名称：<input type="text" name="bname" value="${requestScope.request_book.bname}"/><br/>

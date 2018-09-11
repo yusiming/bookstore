@@ -63,4 +63,20 @@ public class AdminBookServlet extends BaseServlet {
         request.setAttribute("request_categoryList", categoryList);
         return "f:/adminjsps/admin/book/desc.jsp";
     }
+
+    /**
+     * @Description: 添加图书之前，将图书分类信息，转发到add.jsp页面显示
+     * @auther: yusiming
+     * @date: 21:24 2018/9/10
+     * @param: [request, response]
+     * @return: java.lang.String
+     */
+    public String beforeAdd(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+            IOException {
+        /*
+         * 调用service方法，
+         */
+        request.setAttribute("request_categoryList", categoryService.findAll());
+        return "f:/adminjsps/admin/book/add.jsp";
+    }
 }
