@@ -2,6 +2,7 @@ package yu.bookstore.user.dao;
 
 import cn.itcast.jdbc.TxQueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
+import yu.bookstore.user.domain.Admin;
 import yu.bookstore.user.domain.User;
 
 import java.sql.SQLException;
@@ -91,7 +92,23 @@ public class UserDao {
     public void updateState(String uid, boolean state) {
         String sql = "update tb_user set state=? where uid=?";
         try {
-            queryRunner.update(sql,state,uid);
+            queryRunner.update(sql, state, uid);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * @Description: 管理员登陆方法
+     * @auther: yusiming
+     * @date: 23:41 2018/9/12
+     * @param: [username, password]
+     * @return: void
+     */
+    public Admin findByUsername(String username, String password) {
+        String sql = "select * from adminuser where username=? and password=?";
+        try {
+            return queryRunner.query(sql, new BeanHandler<>(Admin.class), username, password);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

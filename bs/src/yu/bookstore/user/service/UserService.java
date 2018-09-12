@@ -1,6 +1,7 @@
 package yu.bookstore.user.service;
 
 import yu.bookstore.user.dao.UserDao;
+import yu.bookstore.user.domain.Admin;
 import yu.bookstore.user.domain.User;
 
 /**
@@ -77,5 +78,18 @@ public class UserService {
             throw new UserException("用户未激活");
         }
         return user;
+    }
+
+    /**
+     * @Description: 管理员登陆方法
+     * @auther: yusiming
+     * @date: 23:36 2018/9/12
+     * @param: [admin]
+     * @return: void
+     */
+    public void login(Admin admin) throws UserException {
+        if (userDao.findByUsername(admin.getUsername(), admin.getPassword()) == null) {
+            throw new UserException("登陆失败");
+        }
     }
 }
