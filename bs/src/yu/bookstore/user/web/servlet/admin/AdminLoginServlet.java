@@ -34,11 +34,11 @@ public class AdminLoginServlet extends BaseServlet {
         System.out.println(admin);
         try {
             userService.login(admin);
+            request.getSession().setAttribute("admin", admin);
         } catch (UserException e) {
             request.setAttribute("msg", e.getMessage());
-            request.getSession().setAttribute("admin", admin);
             return "f:/adminjsps/msg.jsp";
         }
-        return "f://adminjsps/admin/index.jsp";
+        return "f:/adminjsps/admin/index.jsp";
     }
 }

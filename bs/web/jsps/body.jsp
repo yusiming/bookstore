@@ -22,6 +22,7 @@
   </head>
   
   <body>
-    <h1>欢迎，欢迎！热烈欢迎！</h1>
+    <h1>欢迎光临柴柴书店 = = </h1>
+    <img src="<c:url value='/images/welcome.png'/>" width="100%" height="100%"/>
   </body>
 </html>

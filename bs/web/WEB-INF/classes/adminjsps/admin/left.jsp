@@ -17,7 +17,7 @@
     <script type="text/javascript" src="<c:url value='/menu/mymenu.js'/>"></script>
     <link rel="stylesheet" href="<c:url value='/menu/mymenu.css'/>" type="text/css" media="all">
     <script language="javascript">
-        var bar1 = new Q6MenuBar("bar1", "ITCAST网络图书商城");
+        var bar1 = new Q6MenuBar("bar1", "柴柴书店");
 
         function load() {
             bar1.colorStyle = 2;
