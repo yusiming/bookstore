@@ -17,7 +17,7 @@ import java.io.IOException;
  * @Date: 2018/9/12 23:32
  * @Description:
  */
-@WebServlet(name = "AdminLoginServlet",urlPatterns = {"/AdminLoginServlet"})
+@WebServlet(name = "AdminLoginServlet", urlPatterns = {"/AdminLoginServlet"})
 public class AdminLoginServlet extends BaseServlet {
     private UserService userService = new UserService();
 
@@ -36,6 +36,7 @@ public class AdminLoginServlet extends BaseServlet {
             userService.login(admin);
         } catch (UserException e) {
             request.setAttribute("msg", e.getMessage());
+            request.getSession().setAttribute("admin", admin);
             return "f:/adminjsps/msg.jsp";
         }
         return "f://adminjsps/admin/index.jsp";
