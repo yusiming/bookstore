@@ -119,4 +119,15 @@ public class OrderService {
     public List<Order> findUnpaidOrders(int state) {
         return orderDao.findUnpaidOrders(state);
     }
+
+    /**
+     * @Description: 发货
+     * @auther: yusiming
+     * @date: 23:17 2018/9/12
+     * @param: [oid]
+     * @return: void
+     */
+    public void Shipping(String oid) {
+        orderDao.changeOrderState(oid);
+    }
 }

@@ -90,10 +90,28 @@ public class AdminOrderServlet extends BaseServlet {
      * @return: java.lang.String
      */
     public String findReceivedOrders(HttpServletRequest request, HttpServletResponse response) throws
-            ServletException,
-            IOException {
+            ServletException, IOException {
         List<Order> orderList = orderService.findUnpaidOrders(4);
         request.setAttribute("request_orderList", orderList);
         return "f:/adminjsps/admin/order/list.jsp";
+    }
+
+    /**
+     * @Description: 发货
+     * @auther: yusiming
+     * @date: 23:12 2018/9/12
+     * @param: [request, response]
+     * @return: java.lang.String
+     */
+    public String Shipping(HttpServletRequest request, HttpServletResponse response) throws
+            ServletException, IOException {
+        /*
+         * 1.得到oid参数，调用service方法
+         * 2.保存成功信息到request中
+         * 3.转发到msg.jsp页面显示信息
+         */
+        orderService.Shipping(request.getParameter("oid"));
+        request.setAttribute("msg","发货成功");
+        return "f:/adminjsps/admin/msg.jsp";
     }
 }

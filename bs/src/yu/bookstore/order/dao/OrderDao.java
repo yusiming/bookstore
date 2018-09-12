@@ -218,7 +218,7 @@ public class OrderDao {
     public List<Order> findUnpaidOrders(int state) {
         String sql = "select * from orders where state=?";
         try {
-            List<Order> orderList = txQueryRunner.query(sql, new BeanListHandler<>(Order.class),state);
+            List<Order> orderList = txQueryRunner.query(sql, new BeanListHandler<>(Order.class), state);
             for (Order order : orderList) {
                 setOrderItemsToOrder(order);
             }

@@ -47,7 +47,7 @@
                         未付款
                     </c:when>
                     <c:when test="${order.state eq 2}">
-                        已付款未发货(<a href="">发货</a>)
+                        已付款未发货(<a href="<c:url value="/AdminOrderServlet?method=Shipping&oid=${order.oid}"/> ">发货</a>)
                     </c:when>
                     <c:when test="${order.state eq 3}">
                         已发货
