@@ -38,4 +38,62 @@ public class AdminOrderServlet extends BaseServlet {
         request.setAttribute("request_orderList", orderList);
         return "f:/adminjsps/admin/order/list.jsp";
     }
+
+    /**
+     * @Description: 查询所有未付款订单
+     * @auther: yusiming
+     * @date: 22:56 2018/9/12
+     * @param: [request, response]
+     * @return: java.lang.String
+     */
+    public String findUnpaidOrders(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+            IOException {
+        List<Order> orderList = orderService.findUnpaidOrders(1);
+        request.setAttribute("request_orderList", orderList);
+        return "f:/adminjsps/admin/order/list.jsp";
+    }
+
+    /**
+     * @Description: 查询所有已付款订单
+     * @auther: yusiming
+     * @date: 23:02 2018/9/12
+     * @param: [request, response]
+     * @return: java.lang.String
+     */
+    public String findPaidOrders(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+            IOException {
+        List<Order> orderList = orderService.findUnpaidOrders(2);
+        request.setAttribute("request_orderList", orderList);
+        return "f:/adminjsps/admin/order/list.jsp";
+    }
+
+    /**
+     * @Description: 查询未发货订单
+     * @auther: yusiming
+     * @date: 23:05 2018/9/12
+     * @param: [request, response]
+     * @return: java.lang.String
+     */
+    public String findUnReceivedOrders(HttpServletRequest request, HttpServletResponse response) throws
+            ServletException,
+            IOException {
+        List<Order> orderList = orderService.findUnpaidOrders(3);
+        request.setAttribute("request_orderList", orderList);
+        return "f:/adminjsps/admin/order/list.jsp";
+    }
+
+    /**
+     * @Description: 查询已收货订单
+     * @auther: yusiming
+     * @date: 23:06 2018/9/12
+     * @param: [request, response]
+     * @return: java.lang.String
+     */
+    public String findReceivedOrders(HttpServletRequest request, HttpServletResponse response) throws
+            ServletException,
+            IOException {
+        List<Order> orderList = orderService.findUnpaidOrders(4);
+        request.setAttribute("request_orderList", orderList);
+        return "f:/adminjsps/admin/order/list.jsp";
+    }
 }

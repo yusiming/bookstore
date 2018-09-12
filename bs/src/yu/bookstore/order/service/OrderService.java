@@ -108,4 +108,15 @@ public class OrderService {
     public List<Order> findAll() {
         return orderDao.findAll();
     }
+
+    /**
+     * @Description: 查询所有未付款订单
+     * @auther: yusiming
+     * @date: 22:58 2018/9/12
+     * @param: []
+     * @return: java.util.List<yu.bookstore.order.domain.Order>
+     */
+    public List<Order> findUnpaidOrders(int state) {
+        return orderDao.findUnpaidOrders(state);
+    }
 }

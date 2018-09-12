@@ -30,10 +30,10 @@
             bar1.add("图书管理", "添加图书", "<c:url value='/AdminBookServlet?method=beforeAdd'/>", "body");
 
             bar1.add("订单管理", "所有订单", "<c:url value='/AdminOrderServlet?method=findAll'/>", "body");
-            bar1.add("订单管理", "未付款订单", "<c:url value='/adminjsps/admin/order/list.jsp'/>", "body");
-            bar1.add("订单管理", "已付款订单", "<c:url value='/adminjsps/admin/order/list.jsp'/>", "body");
-            bar1.add("订单管理", "未收货订单", "<c:url value='/adminjsps/admin/order/list.jsp'/>", "body");
-            bar1.add("订单管理", "已完成订单", "<c:url value='/adminjsps/admin/order/list.jsp'/>", "body");
+            bar1.add("订单管理", "未付款订单", "<c:url value='/AdminOrderServlet?method=findUnpaidOrders'/>", "body");
+            bar1.add("订单管理", "已付款订单", "<c:url value='/AdminOrderServlet?method=findPaidOrders'/>", "body");
+            bar1.add("订单管理", "未收货订单", "<c:url value='/AdminOrderServlet?method=findUnReceivedOrders'/>", "body");
+            bar1.add("订单管理", "已完成订单", "<c:url value='/AdminOrderServlet?method=findReceivedOrders'/>", "body");
 
             var d = document.getElementById("menu");
             d.innerHTML = bar1.toString();

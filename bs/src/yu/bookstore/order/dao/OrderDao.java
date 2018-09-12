@@ -207,4 +207,24 @@ public class OrderDao {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * @Description: 根据订单状态查询订单
+     * @auther: yusiming
+     * @date: 23:00 2018/9/12
+     * @param: [state]
+     * @return: java.util.List<yu.bookstore.order.domain.Order>
+     */
+    public List<Order> findUnpaidOrders(int state) {
+        String sql = "select * from orders where state=?";
+        try {
+            List<Order> orderList = txQueryRunner.query(sql, new BeanListHandler<>(Order.class),state);
+            for (Order order : orderList) {
+                setOrderItemsToOrder(order);
+            }
+            return orderList;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
