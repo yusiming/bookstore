@@ -187,4 +187,24 @@ public class OrderDao {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * @Description: 查询所有订单信息
+     * @auther: yusiming
+     * @date: 22:26 2018/9/12
+     * @param: []
+     * @return: java.util.List<yu.bookstore.order.domain.Order>
+     */
+    public List<Order> findAll() {
+        String sql = "select * from orders";
+        try {
+            List<Order> orderList = txQueryRunner.query(sql, new BeanListHandler<>(Order.class));
+            for (Order order : orderList) {
+                setOrderItemsToOrder(order);
+            }
+            return orderList;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

@@ -59,7 +59,6 @@ public class AdminBookServlet extends BaseServlet {
          */
         Book book = bookService.load(request.getParameter("bid"));
         List<Category> categoryList = categoryService.findAll();
-        System.out.println(categoryList);
         request.setAttribute("request_book", book);
         request.setAttribute("request_categoryList", categoryList);
         return "f:/adminjsps/admin/book/desc.jsp";

@@ -61,7 +61,7 @@
     <tr bgcolor="gray" bordercolor="gray">
         <td colspan="6">
             订单编号：${requestScope.order.oid}　
-            成交时间：<fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${requestScope.order.ordertime}"/>　
+            成交时间：${requestScope.order.ordertime}　
             金额：<font color="red"><b>${requestScope.order.total}元</b></font>
         </td>
     </tr>

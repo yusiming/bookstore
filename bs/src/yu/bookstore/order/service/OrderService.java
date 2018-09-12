@@ -97,4 +97,15 @@ public class OrderService {
             orderDao.changeOrderState(r6_order);
         }
     }
+
+    /**
+     * @Description: 后台管理查询所有订单
+     * @auther: yusiming
+     * @date: 22:25 2018/9/12
+     * @param: []
+     * @return: java.util.List<yu.bookstore.order.domain.Order>
+     */
+    public List<Order> findAll() {
+        return orderDao.findAll();
+    }
 }
